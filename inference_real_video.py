@@ -54,7 +54,9 @@ def get_face_image_transform():
     mean=[0.485, 0.456, 0.406],
     std=[0.229, 0.224, 0.225]
     )
-    vision_transform_list = [transforms.Resize(224), transforms.ToTensor(), normalize]
+    # vision_transform_list = [transforms.Resize(224), transforms.ToTensor(), normalize]
+    # for ravdess, 长宽不等比例
+    vision_transform_list = [transforms.Resize([224,224]), transforms.ToTensor(), normalize]
     vision_transform = transforms.Compose(vision_transform_list)
     return vision_transform
 
@@ -262,10 +264,12 @@ def generate(
     return
 
 
-@hydra.main(version_base=None, config_path="configs/", config_name="config")
+@hydra.main(version_base=None, config_path="configs/", config_name="real_config")
 def main(cfg: DictConfig) -> None:
     print(OmegaConf.to_yaml(cfg))
     OmegaConf.set_struct(cfg, False)  # Allow writing keys
+
+    
 
     generate(
             generate_cfg=cfg.generate,
