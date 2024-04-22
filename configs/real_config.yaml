@@ -48,7 +48,8 @@ generate:
   name: LRS3
   ckpt_path: /data2/haoqiuyan/models/lipvoicer_download/exp/LRS3/wnet_h512_d12_T400_betaT0.02/checkpoint/1000000.pkl           
   n_samples: 3          # Number of utterances from test dataset to be generated 
-  video_path: /data2/haoqiuyan/datasets/ravdess/Actor_09/01-01-01-01-01-01-09.mp4 # /data2/haoqiuyan/datasets/lipvoicer_test/w12asr/6393267985458244248/00006.mp4      # generate audio for a given silent video file
+  video_dir: /data2/haoqiuyan/datasets/ravdess/Actor_09
+  video_path: null  # /data2/haoqiuyan/datasets/ravdess/Actor_09/01-01-01-01-01-01-09.mp4 # /data2/haoqiuyan/datasets/lipvoicer_test/w12asr/6393267985458244248/00006.mp4      # generate audio for a given silent video file
   w_video: 2            # w1 in the paper
   w_asr: 1.5            # w2 in the paper
   asr_start: 270        # t_asr

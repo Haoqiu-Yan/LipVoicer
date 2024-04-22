@@ -36,6 +36,8 @@ from mouthroi_processing import crop_and_infer
 
 from utils import print_size, calc_diffusion_hyperparams, local_directory, find_max_epoch
 
+import glob
+
 
 def get_mouthroi_transform():
     # -- preprocess for the video stream
@@ -269,13 +271,17 @@ def main(cfg: DictConfig) -> None:
     print(OmegaConf.to_yaml(cfg))
     OmegaConf.set_struct(cfg, False)  # Allow writing keys
 
-    
+    video_pathL = glob.glob(os.path.join(cfg.generate['video_dir'], "*.mp4"))
+    for video_path in tqdm(video_pathL):
+        cfg.generate['video_path'] = video_path
+        print(f"Processing {cfg.generate['video_path']}")
+        # continue
+        generate(
+                generate_cfg=cfg.generate,
+                diffusion_cfg=cfg.diffusion,
+                model_cfg=cfg.melgen,
+        )
 
-    generate(
-            generate_cfg=cfg.generate,
-            diffusion_cfg=cfg.diffusion,
-            model_cfg=cfg.melgen,
-    )
 
 
 if __name__ == "__main__":
